@@ -1,6 +1,7 @@
 class Heroes {
     constructor() {
         this.heroNames = [
+             
              'Kevin Graham',
              'Ries Argent',
              'Estelle Bright',
@@ -19,14 +20,29 @@ class Heroes {
              'Renne'
         ]
     }
-    /*
-    heroesList() { //not sure what to do with this yet or if I even need it
-        return this.heroNames;
-    */
+    heroesList() {
+        return `
+1. Kevin Graham
+2. Ries Argent
+3. Estelle Bright
+4. Joshua Cright
+5. Schera Harvey
+6. Agate Crosner
+7. Tita Russel
+8. Zin Vathek
+9. Anelace Elfead
+10. Klaudia von Auslese
+11. Olivier Lenheim
+12. Julia Schwarz
+13. Mueller Vander
+14. Josette Capua
+15. Alan Richard
+16. Renne`
     }
-//}
+}
 
 
+/*
 class AttackTeam {
     constructor(name) {
         this.name = name;
@@ -44,12 +60,12 @@ class AttackTeam {
         return `This team contains ${this.teamMembers[0]}, ${this.teamMembers[1]}, ${this.teamMembers[2]}, and ${this.teamMembers[3]}.`
     }
 }
-
+*/
 
 class Menu extends Heroes {
     constructor() {
-        super(heroNames);
-        this.teams = ['', '', '', ''];
+        super();
+        this.teams = [[], [], [], []]; //might need to make it take arrays and not strings?
         this.selectedTeam = null;
     }
     start() {
@@ -78,8 +94,8 @@ You will be unable to use the Recluse Cube to return to the garden after departu
 All 16 Heroes must be split into four Attack Teams of four Heroes each in order to breach the castle.
 Please form the compositions of the four Attack Teams now.
 
-        1) Create New Team
-        2) Delete Team
+        1) Create Teams
+        2) Reset Teams
         3) Display All Teams
         `)
     }
@@ -92,17 +108,17 @@ Please form the compositions of the four Attack Teams now.
     }
     createTeam() {
         let teamLimit = 4;
-        for (let i = 1; i <= teamLimit; i++) {
-        let draftedHeroes = prompt(`From their indices, choose the four Heroes that will make up Attack Team ${i}. Please do not duplicate Heroes across Attack Teams.
-${this.heroNames}
+        for (let i = 0; i < teamLimit; i++) {
+        prompt(`From their indices, choose the four Heroes that will make up Attack Team ${i}. Please do not duplicate Heroes across Attack Teams.
+${this.heroesList()}
         `);
-        this.teams[i].push(new AttackTeam(name));
+        this.teams[i].push(this.heroNames[i]);
         }
     }
 
 }
 //Main Menu Prompt Initialization
-let mainMenu = new Menu()
+let mainMenu = new Menu();
 mainMenu.showMainMenuOptions();
 //Initialize option 1 - Create Team
 mainMenu.createTeam();
