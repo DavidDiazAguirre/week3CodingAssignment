@@ -33,9 +33,9 @@ class Menu extends Heroes { //This is where the bulk of the Menu lives, in it's 
     constructor() {
         super();
         this.teams = [[], [], [], []]; //I want the user to manually split the 16 heroes into 4 teams of 4 heroes each, so I created this array to nest 4 arrays to represent each team.
-        this.selectedTeam = null; //Does this do anything??? I just copied it off the video
+
     }
-    start() { //This lets the user open the main menu and choose from createTeam, deleteTeam and displayTeams using a switch statement
+    start() { //This lets the user open the main menu and choose from createTeam, resetTeams and displayTeams using a switch statement
         let selection = this.showMainMenuOptions(); //invokes the main menu
         while (selection != 0) { //the menu uses a switch statement inside of a while loop to determine the user's choice.
             switch (selection) {
@@ -43,7 +43,7 @@ class Menu extends Heroes { //This is where the bulk of the Menu lives, in it's 
                     this.createTeam();
                     break;            
                 case '2':
-                    this.deleteTeam();
+                    this.resetTeams();
                     break;
                 case '3':
                     this.displayTeams();
@@ -97,10 +97,22 @@ ${this.heroesList()}`); //This template literal gives the user instructions on h
             return this.teams;
     }
     
+    //RESET ALL TEAMS TO THEIR EMPTY NESTED ARRAYS
+    resetTeams() {
+        let teamReset = prompt(`This will undo all currently created teams, are you sure?
+        1) Yes
+        2) No
+        `)
 
+        switch (teamReset) {
+            case '1':
+                for (let i = 0; i < this.teams.length; i++)
+                    this.teams[i].splice(0, 4)
+            break;
+            default: this.start(); 
+            }          
+        }
     
-
-
 }
 //Main Menu Prompt Initialization
 let mainMenu = new Menu();
