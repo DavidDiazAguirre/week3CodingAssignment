@@ -29,13 +29,13 @@ class Heroes {   //This holds all 16 hero names in an array heroNames, with the 
     }
 }
 
-class Menu extends Heroes { //This is where the bulk of the Menu lives, in it's own class. It inherits the Heroes class and borrows the properties and methods above with super() in the constructor
+class Menu extends Heroes { //This is where the bulk of the Menu lives, in it's own class that houses all functionality. It inherits the Heroes class and borrows the properties and methods above with super() in the constructor
     constructor() {
         super();
         this.teams = [[], [], [], []]; //I want the user to manually split the 16 heroes into 4 teams of 4 heroes each, so I created this array to nest 4 arrays to represent each team.
 
     }
-    start() { //This lets the user open the main menu and choose from createTeam, resetTeams and displayTeams using a switch statement
+    start() { //This starts the main menu and the switch statement to choose from createTeam, resetTeams and displayTeams methods using a switch statement. This method is initialized by the mainMenu variable at the bottom.
         let selection = this.showMainMenuOptions(); //invokes the main menu
         while (selection != 0) { //the menu uses a switch statement inside of a while loop to determine the user's choice.
             switch (selection) {
@@ -58,7 +58,7 @@ class Menu extends Heroes { //This is where the bulk of the Menu lives, in it's 
     }
 
     // MAIN MENU
-    showMainMenuOptions() { //this functions invokes the Main Menu the user sees and advises them on what they must do as well as displays their numbered options that relate to the switch statement from start()
+    showMainMenuOptions() { //this method makes the main menu text the user sees and advises them on what they must do as well as displays their numbered options that relate to the switch statement from start()
         return prompt(`You are almost ready to board the Arseille and face the final trials that await at Castle Phantasmagoria.
 You will be unable to use the Recluse Cube to return to the garden after departure.
 All 16 Heroes must be split into four Attack Teams of four Heroes each in order to breach the castle.
@@ -71,7 +71,7 @@ Please form the compositions of the four Attack Teams now.
     }
 
     //TEAM DISPLAY MENU (option 3)
-    displayTeams() {  //this method initializes the empty string teamString, and then loops through the teams array and adds "Team [i+1]: w, x, y, z".
+    displayTeams() {  //this method initializes the empty string teamString, and then loops through the teams array and adds "Team [i+1]: hero1, hero2, hero3, hero4".
         let teamString = '';
         for (let i = 0; i < this.teams.length; i++) {
             teamString += `Team ${i + 1}: ${this.teams[i].join(', ')}\n`; //This displays all four teams on a new line. Why four teams? Because the length of the teams array is 4. They are numbered using the string interpolation ${i + 1}.
@@ -98,23 +98,23 @@ ${this.heroesList()}`); //This template literal gives the user instructions on h
     }
     
     //RESET ALL TEAMS TO THEIR EMPTY NESTED ARRAYS
-    resetTeams() {
+    resetTeams() { 
         let teamReset = prompt(`This will undo all currently created teams, are you sure?
         1) Yes
         2) No
         `)
 
-        switch (teamReset) {
+        switch (teamReset) { //switch statement to see if user enters a 1, which initiaties a for loop to loop through the arrays of the teams array and uses splice to remove all contents
             case '1':
                 for (let i = 0; i < this.teams.length; i++)
                     this.teams[i].splice(0, 4)
             break;
-            default: this.start(); 
+            default: this.start(); //otherwise goes back to main menu
             }          
         }
     
 }
 //Main Menu Prompt Initialization
 let mainMenu = new Menu();
-mainMenu.start();
+mainMenu.start(); //this starts the menu
 
